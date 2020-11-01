@@ -32,9 +32,7 @@ int maximum_width_of_binary_tree(Node *root)
 		q.pop();
 		if(curr==NULL)
 		{
-			// cout<<endl;
 			q.push(NULL);
-			// width1 = int(q.size());
 			width = max(width,int(q.size()));
 		}
 		else
@@ -43,10 +41,8 @@ int maximum_width_of_binary_tree(Node *root)
 				q.push(curr->left);
 			if(curr->right)
 				q.push(curr->right);
-			// cout<<curr->data<<" ";
 		}
 	}
-	// cout<<endl;
 	return width-1;
 }
 
