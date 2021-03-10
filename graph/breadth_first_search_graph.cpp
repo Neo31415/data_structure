@@ -8,26 +8,28 @@ void addAdj(vector<int> adj[],int i,int j)
 	adj[j].push_back(i);
 }
 
-void DFS(vector<int> adj[], int ver)
+void BFS(vector<int> adj[], int v, int s)
 {
-	unordered_set<int> intSet;
-	intSet.insert(ver);
+	bool visited[v+1];
+	for (int i = 0; i < v; ++i)
+		visited[i]=false;
 	queue<int> que;
-	que.push(ver);
+	que.push(s);
+	visited[s] = true; 
 	while(!que.empty())
 	{
 		int ele;
 		ele = que.front();
-		for(int i=0;i<adj[ele].size();i++)
+		for (int i = 0; i < adj[ele].size(); ++i)
 		{
-			if (intSet.find(adj[ele][i]) == intSet.end())
+			if (visited[adj[ele][i]]==false)
 			{
-            	intSet.insert(adj[ele][i]);
-            	que.push(adj[ele][i]);
+				visited[adj[ele][i]] = true;
+				que.push(adj[ele][i]);
 			}
 		}
+		visited[ele] = true;
 		cout<<ele<<" ";
-
 		que.pop();
 	}
 }
@@ -44,7 +46,7 @@ int main()
 	addAdj(adj,2,4);
 	addAdj(adj,3,5);
 	addAdj(adj,4,5);
-	DFS(adj,0);
+	BFS(adj,v,0);
 	return 0;
 
 
