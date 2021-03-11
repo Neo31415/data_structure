@@ -2,17 +2,17 @@
 
 using namespace std;
 
-void addAdj(vector<int> adj[],int i,int j)
+void addEdge(vector<int> adj[],int i,int j)
 {
 	adj[i].push_back(j);
 	adj[j].push_back(i);
 }
 
-void BFS(vector<int> adj[], int v, int s)
+void BFS(vector<int> adj[], int s, bool visited[])
 {
-	bool visited[v+1];
-	for (int i = 0; i < v; ++i)
-		visited[i]=false;
+	// bool visited[v+1];
+	// for (int i = 0; i < v; ++i)
+	// 	visited[i]=false;
 	queue<int> que;
 	que.push(s);
 	visited[s] = true; 
@@ -28,26 +28,56 @@ void BFS(vector<int> adj[], int v, int s)
 				que.push(adj[ele][i]);
 			}
 		}
-		visited[ele] = true;
 		cout<<ele<<" ";
 		que.pop();
 	}
 }
 
+void BFSDin(vector<int> adj[],int v)
+{
+	bool visited[v+1];
+	for (int i = 0; i < v; ++i)
+		visited[i]=false;
+	for (int i = 0; i < v; ++i)
+	{
+		if(visited[i]==false)
+			BFS(adj,i,visited);
+	}
+}
+
+
+
+
 int main()
 {
-	int v=6;
+	int v=7;
 	vector<int> adj[v];
 	unordered_set<int> intSet;
-	addAdj(adj,0,1);
-	addAdj(adj,0,2);
-	addAdj(adj,0,5);
-	addAdj(adj,1,3);
-	addAdj(adj,2,4);
-	addAdj(adj,3,5);
-	addAdj(adj,4,5);
-	BFS(adj,v,0);
+	addEdge(adj,0,1);
+	addEdge(adj,0,2);
+	addEdge(adj,1,3);
+	addEdge(adj,2,3);
+	addEdge(adj,4,5);
+	addEdge(adj,4,6);
+	addEdge(adj,5,6);
+	BFSDin(adj,v);
 	return 0;
-
-
 }
+
+// int main() 
+// { 
+// 	int V=7;
+// 	vector<int> adj[V];
+// 	addEdge(adj,0,1); 
+// 	addEdge(adj,0,2); 
+// 	addEdge(adj,2,3); 
+// 	addEdge(adj,1,3); 
+// 	addEdge(adj,4,5);
+// 	addEdge(adj,5,6);
+// 	addEdge(adj,4,6);
+
+// 	cout << "Following is Breadth First Traversal: "<< endl; 
+// 	BFSDin(adj,V); 
+
+// 	return 0; 
+// } 
